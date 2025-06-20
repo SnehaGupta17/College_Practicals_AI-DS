@@ -1,0 +1,21 @@
+/*Write a program that asks the user for a number and outputs the number squared that is entered*/
+
+
+int n;
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.print("Enter a number: ");
+  while(!Serial.available())
+    n = Serial.parseInt();
+    while(Serial.available()){
+      Serial.read();
+    }
+
+    int square = n*n;
+
+    Serial.print("The square of the given number is: ");
+    Serial.println(square);
+};
