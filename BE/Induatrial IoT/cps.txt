@@ -1,0 +1,50 @@
+/*Write a Program to design and develop a user interface for monitoring and controlling CPS (Cyber Physical System)
+system*/
+
+#include <WiFi.h>
+#include <WebServer.h>
+
+const char* ssid = "";   // WiFi name
+const char* password = "";           // WiFi password
+
+WebServer server(80);                // Create web server on port 80
+const int ledPin = 2;                // LED connected to GPIO 2
+
+void handleRoot() {
+  String html = "<html><body><h2>CPS Monitoring & Control</h2>";
+  html += "<p>LED Status: ";
+  html += digitalRead(ledPin) ? "ON" : "OFF";
+  html += "</p><a href='/on'><button>Turn ON</button></a>";
+  html += "<a href='/off'><button>Turn OFF</button></a>";
+  html += "</body></html>";
+  server.send(200, "text/html", html);
+}
+
+void handleOn() {
+  digitalWrite(ledPin, HIGH);
+  handleRoot();
+}
+
+void handleOff() {
+  digitalWrite(ledPin, LOW);
+  handleRoot();
+}
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  Serial.println("Connecting to WiFi...");
+  while (WiFi.status() != WL_CONNECTED) delay(500);
+  Serial.println("WiFi connected");
+  Serial.println(WiFi.localIP());
+
+  server.on("/", handleRoot);
+  server.on("/on", handleOn);
+  server.on("/off", handleOff);
+  server.begin();
+}
+
+void loop() {
+  server.handleClient();
+}

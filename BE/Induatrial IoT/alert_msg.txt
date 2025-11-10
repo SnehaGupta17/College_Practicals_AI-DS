@@ -1,0 +1,29 @@
+/* Write a program for sending alert messages to the user for controlling and interacting with your
+environment. */
+
+const int potPin = 34;     // Potentiometer connected to GPIO34 (Analog input)
+int potValue = 0;          // Variable to store sensor value
+int threshold = 2000;      // Alert threshold (0–4095 for ESP32 ADC)
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+  Serial.println("IIoT Environment Monitoring System Started");
+  Serial.println("Adjust the potentiometer to simulate environmental change.\n");
+}
+
+void loop() {
+  potValue = analogRead(potPin);   // Read analog sensor value
+  Serial.print("Sensor Value: ");
+  Serial.println(potValue);
+
+  // Check for alert condition
+  if (potValue > threshold) {
+    Serial.println("ALERT: Environment Level High! Take Action Immediately.\n");
+  } 
+  else {
+    Serial.println("Environment Conditions Normal.\n");
+  }
+
+  delay(2000); // Wait for 2 seconds before next reading
+}
