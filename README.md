@@ -14,12 +14,16 @@ This repository contains all practical assignments and experiments completed dur
 - OOP
 
 ### TE
-- AI
-- ANN
+- Artificial Intelligence
+- Artificial Neural Network
 - Computer Networks
-- DBMS
+- DataBase Management System
 - Data Science
 
 ### BE
+- Machine Learning
+- Data Modelling Visualization
+- Industrial Internet of Things
+
 
   
